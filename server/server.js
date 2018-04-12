@@ -4,10 +4,12 @@ const session = require('express-session');
 const massive= require('massive');
 require('dotenv').config();
 const axios=require('axios');
+const userController = require('./user_controller')
 
-cons app = express();
+
+const app = express();
 app.use(bodyParser.json());
-
+massive(process.env.CONNECTION_STRING).then(db => app.set('db', db));
 app.use(session({
     secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
