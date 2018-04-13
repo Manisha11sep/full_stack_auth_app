@@ -41,7 +41,7 @@ module.exports = {
 
     logout : (req,res)=>{
         const name = req.session.user.name;
-        req.session.destory();
+        req.session.destroy();
         res.json({message: 'you have successfully logged out, ${name}'});
 
     },

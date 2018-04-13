@@ -1,36 +1,31 @@
 import React from 'react';
-import { connect } from "react-redux";
-import Reducer, {logout} from '../ducks/reducer';
-import axiox from 'axios';
-const Profile =  (props) =>{
-    console.log('inside profile', props);
-    return(
-        <div>
-                <img src ={props.picture}/>
-                <h1>name: {props.name}</h1>
-                <h2>{props.email}</h2>
+import { connect } from 'react-redux';
+import { logout } from '../ducks/reducer';
+import axios from 'axios';
 
-                {/* <button onClick ={props.logout}> Logout </button> */}
-                <button onClick ={() =>{
-                    axiox.post('/api/logout').then(respnose =>{
-                        props.logout();
-                        props.history.push('/');
-                    });
-                }}> Logout </button>
-        </div>
-    )
+const Profile = (props) => {
+  console.log('-------------- props', props);
+  return (
+    <div>
+      <img src={props.picture} alt={'User image of ' + props.name} />
+      <h1>{props.name}</h1>
+      <h6>Email: {props.email}</h6>
+      <button onClick={() => {
+        axios.post('/api/logout').then(response => {
+          props.logout();
+          props.history.push('/');
+        });
+      }}>Logout</button>
+    </div>
+  )
 }
 
-
-const mapStateToProps=state=>{
-    return{
-        state
-    }
+const mapStateToProps = state => {
+  return state;
 };
 
-// mapDispatchToProps ={
-//     logout,
-// }
+const mapDispatchToProps = {
+  logout,
+};
 
-
-export default connect(mapStateToProps, {logout})(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
